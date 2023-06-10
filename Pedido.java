@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 public class Pedido {
     private String nomeCliente;
-    private double quantidade;
+    private int quantidade;
+
+    private double precoTotal;
     private double pagamento;
     private ArrayList<Prato> itensConsumido = new ArrayList<>();
     private Double taxaDeServico;
@@ -12,7 +14,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(String nomeCliente, double quantidade, double pagamento, ArrayList<Prato> itensConsumido, Double taxaDeServico) {
+    public Pedido(String nomeCliente, int quantidade, double pagamento, ArrayList<Prato> itensConsumido, Double taxaDeServico) {
         this.nomeCliente = nomeCliente;
         this.quantidade = quantidade;
         this.pagamento = pagamento;
@@ -20,18 +22,23 @@ public class Pedido {
         this.taxaDeServico = taxaDeServico;
     }
 
-    public void calcularPrecoTotal() {
-        Scanner sc = new Scanner(System.in);
-        double precoTotal = 0;
-        for (Prato i : itensConsumido) {
-            precoTotal += i.getPrecoDeVenda() + (i.getPrecoDeVenda() * taxaDeServico);
-        }
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
 
-        System.out.printf("Total = %.2f%n", precoTotal);
-        System.out.print("Pagamento: ");
-        double valor = sc.nextDouble();
-        pagamento = valor;
-        mostrarFactura(precoTotal);
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
+    }
+
+    public double calcularPrecoTotal() {
+        //Scanner sc = new Scanner(System.in);
+        double subpreco = 0;
+        for (Prato i : itensConsumido) {
+            subpreco += i.getPrecoDeVenda() + (i.getPrecoDeVenda() * taxaDeServico);
+        }
+        //mostrarFactura(precoTotal);
+        precoTotal = subpreco*quantidade;
+        return precoTotal;
     }
 
     // exemplo de factura
@@ -63,11 +70,11 @@ public class Pedido {
         this.nomeCliente = nomeCliente;
     }
 
-    public double getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(double quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class ConexaoDB {
     static Connection con;
     static String driver = "com.mysql.cj.jdbc.Driver";
-    static String url = "jdbc:mysql://localhost:3306/snakebar3";
+    static String url = "jdbc:mysql://localhost:3306/snakebar";
     static String uname = "root";
     static String pass = "";
 
@@ -18,10 +18,10 @@ public class ConexaoDB {
                 try {
                     con = DriverManager.getConnection(url,uname, pass);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ConexaoDB.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ConexaoDB.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
 
