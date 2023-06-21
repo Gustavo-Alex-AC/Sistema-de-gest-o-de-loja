@@ -1,11 +1,18 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package snackbar;
+
+/**
+ *
+ * @author LENOVO
+ */
 public class Pizza extends Prato{
-    private String molho;
+     private String molho;
     private String recheio;
     private String cobertura;
 
-    public Pizza() {
-
-    }
 
     public Pizza(Double precoDeVenda, String dataDeValidade, Double peso, String molho, String recheio, String cobertura) {
         super(precoDeVenda, dataDeValidade, peso);
@@ -13,6 +20,11 @@ public class Pizza extends Prato{
         this.recheio = recheio;
         this.cobertura = cobertura;
     }
+    
+    public Pizza() {
+
+    }
+
 
     public String getMolho() {
         return molho;

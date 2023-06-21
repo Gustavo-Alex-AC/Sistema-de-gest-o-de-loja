@@ -1,17 +1,20 @@
+
+package snackbar;
+
 public class Salgadinho extends Prato{
-    private String tipo;
+      private String tipo;
     private String recheio;
     private String massa;
-
-    public Salgadinho() {
-
-    }
-
+    
     public Salgadinho(Double precoDeVenda, String dataDeValidade, Double peso, String tipo, String recheio, String massa) {
         super(precoDeVenda, dataDeValidade, peso);
         this.tipo = tipo;
         this.recheio = recheio;
         this.massa = massa;
+    }
+    
+    public Salgadinho() {
+        
     }
 
     public String getTipo() {

@@ -1,25 +1,39 @@
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package snackbar;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+
+
+/**
+ *
+ * @author GonçaloJ
+ */
 public class Pedido {
     private String nomeCliente;
-    private int quantidade;
-
     private double precoTotal;
     private double pagamento;
     private ArrayList<Prato> itensConsumido = new ArrayList<>();
     private Double taxaDeServico;
 
-    public Pedido() {
-    }
-
-    public Pedido(String nomeCliente, int quantidade, double pagamento, ArrayList<Prato> itensConsumido, Double taxaDeServico) {
+   
+    public Pedido(String nomeCliente, double pagamento, ArrayList<Prato> itensConsumido, Double taxaDeServico) {
         this.nomeCliente = nomeCliente;
-        this.quantidade = quantidade;
         this.pagamento = pagamento;
         this.itensConsumido = itensConsumido;
         this.taxaDeServico = taxaDeServico;
+    }
+    
+    public Pedido() {
     }
 
     public double getPrecoTotal() {
@@ -31,35 +45,72 @@ public class Pedido {
     }
 
     public double calcularPrecoTotal() {
-        //Scanner sc = new Scanner(System.in);
-        double subpreco = 0;
+        double precoTotal = 0;
+        double peso = 0;
         for (Prato i : itensConsumido) {
-            subpreco += i.getPrecoDeVenda() + (i.getPrecoDeVenda() * taxaDeServico);
+            precoTotal += i.getPrecoDeVenda() + (i.getPrecoDeVenda() * taxaDeServico);
+            peso += i.getPeso();
         }
-        //mostrarFactura(precoTotal);
-        precoTotal = subpreco*quantidade;
+
+        if (peso>=3 && peso <=5){
+            precoTotal = precoTotal + precoTotal*0.1;
+        } else if (peso>=6 && peso <=10) {
+            precoTotal = precoTotal + precoTotal*0.2;
+        } else{
+            precoTotal = precoTotal + precoTotal*0.3;
+        }
+
         return precoTotal;
     }
 
-    // exemplo de factura
-    public void mostrarFactura(double precoTotal) {
+    public void factura(){
 
-        System.out.println("-".repeat(30));
-        System.out.println("----Snack Bar - Chale----");
-        System.out.println("-".repeat(30));
-        double troco = pagamento - precoTotal;
-        for (Prato i : itensConsumido) {
-            System.out.printf("%s: %6.2f%n", i.getClass().getName().toUpperCase(Locale.ROOT), i.getPrecoDeVenda());
+         try {
+            String fileName = "C:\\Users\\user\\Desktop\\Fatura\\factura.pdf";
+            Document factura = new Document();
+            
+            try {
+                PdfWriter.getInstance(factura, new FileOutputStream(fileName));
+                factura.open();
+
+                // Create font for header and items
+                Font headerFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
+                Font itemFont = new Font(Font.FontFamily.HELVETICA, 12);
+
+                // Add header
+                Paragraph header1 = new Paragraph("O Chalê - Snack Bar", headerFont);
+                factura.add(header1);
+                factura.add(new Paragraph("----------------------------------------"));
+
+                // Add customer details
+                Paragraph header2 = new Paragraph("Recibo ", headerFont);
+                factura.add(header2);
+                factura.add(new Paragraph("Cliente:    " + nomeCliente));
+                factura.add(new Paragraph("\n"));
+                // Add items
+                for (var i : itensConsumido) {
+                    String itemName = i.getClass().getName().substring(9);
+                    if (itemName.equalsIgnoreCase("pizza") || itemName.equalsIgnoreCase("lanche")) itemName = itemName+"     ";
+                    double itemPrice = i.precoDeVenda;
+
+                    Paragraph item = new Paragraph(String.format("%-15s $%.2f", itemName, itemPrice), itemFont);
+                    factura.add(item);
+                }
+
+                factura.add(new Paragraph("----------------------------------------"));
+                factura.add(new Paragraph(String.format("Total:          $%.2f", calcularPrecoTotal())));
+                factura.add(new Paragraph(String.format("Pagamento:  $%.2f", getPagamento())));
+                factura.add(new Paragraph(String.format("Troco:          $%.2f", getPagamento()-calcularPrecoTotal())));
+                factura.add(new Paragraph("------------- Obrigado!!! ------------"));
+
+                factura.close();
+                System.out.println("Receipt generated successfully.");
+            } catch (DocumentException ex) {
+                System.out.println(ex);
+            }
+        } catch (FileNotFoundException ex) {
+             System.out.println(ex);
         }
-        System.out.printf("TAXA DE SERVIÇO: %6.2f%n", taxaDeServico);
-        System.out.println("-".repeat(30));
-        System.out.printf("PREÇO TOTAL: %6.2f%n", precoTotal);
-        System.out.println("-".repeat(30));
-        System.out.printf("PAGAMENTO: %6.2f%n", pagamento);
-        System.out.printf("TROCO: %6.2f%n", troco);
-        System.out.println("-".repeat(30));
-        System.out.println("----Obrigado----");
-        System.out.println("-".repeat(30));
     }
 
     public String getNomeCliente() {
@@ -68,14 +119,6 @@ public class Pedido {
 
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public double getPagamento() {
@@ -102,4 +145,3 @@ public class Pedido {
         this.taxaDeServico = taxaDeServico;
     }
 }
-
