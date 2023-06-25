@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Gonçalo
+ * @author LENOVO
  */
 public class PedidoDBImp implements PedidoDB {
     int lastId;
@@ -88,7 +88,7 @@ public class PedidoDBImp implements PedidoDB {
         try {
             Connection con = ConexaoDB.getConnection();
 
-            // Inserir dados quando o nome da classe for lanche
+            // Inserir dados quando o nome da classe for pizza
 
             String sql1 = "INSERT INTO prato(preco_de_venda,data_de_validade,peso,tipo_de_pao, recheio,molho,Prato_TIPO) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps1 = con.prepareStatement(sql1, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -144,7 +144,7 @@ public class PedidoDBImp implements PedidoDB {
         try {
             Connection con = ConexaoDB.getConnection();
 
-            // Inserir dados quando o nome da classe for salgadinh
+            // Inserir dados quando o nome da classe for pizza
 
             String sql1 = "INSERT INTO prato(preco_de_venda,data_de_validade,peso,recheio,massa,tipoSalgadinho,Prato_TIPO) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps1 = con.prepareStatement(sql1, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -195,7 +195,7 @@ public class PedidoDBImp implements PedidoDB {
     public void gerarFactura(Pedido pedido) {
         
          try {
-            String fileName = "C:\\Users\\user\\Desktop\\Fatura\\factura.pdf";
+            String fileName = "C:\\Users\\LENOVO\\Desktop\\GeneratePdf\\factura.pdf";
             Document factura = new Document();
             
             try {

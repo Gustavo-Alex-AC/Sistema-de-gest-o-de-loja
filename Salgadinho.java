@@ -1,10 +1,18 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package snackbar;
 
+/**
+ *
+ * @author LENOVO
+ */
 public class Salgadinho extends Prato{
       private String tipo;
     private String recheio;
     private String massa;
+
     
     public Salgadinho(Double precoDeVenda, String dataDeValidade, Double peso, String tipo, String recheio, String massa) {
         super(precoDeVenda, dataDeValidade, peso);

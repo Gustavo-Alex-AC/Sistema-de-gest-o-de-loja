@@ -10,6 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ *
+ * @author LENOVO
+ */
 public class Prato {
     protected Double precoDeVenda;
     private String dataDeValidade;

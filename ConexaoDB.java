@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
  *
- * @author GonçaloJ
+ * @author LENOVO
  */
 public class ConexaoDB {
      static Connection con;

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author GonçaloJ
+ * @author LENOVO
  */
 public class Pedido {
     private String nomeCliente;
@@ -66,7 +66,7 @@ public class Pedido {
     public void factura(){
 
          try {
-            String fileName = "C:\\Users\\user\\Desktop\\Fatura\\factura.pdf";
+            String fileName = "C:\\Users\\LENOVO\\Desktop\\GeneratePdf\\factura.pdf";
             Document factura = new Document();
             
             try {
